@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agent.wgcloud.mbg.mapper.IntrusionInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.agent.wgcloud.mbg.model.IntrusionInfo" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="CHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="CHAR" />
+    <result column="HOST_NAME" property="hostName" jdbcType="CHAR" />
+    <result column="PASSWD_INFO" property="passwdInfo" jdbcType="VARCHAR" />
+    <result column="PROMISC" property="promisc" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.agent.wgcloud.mbg.model.IntrusionInfo" extends="BaseResultMap" >
+    <result column="LSMOD" property="lsmod" jdbcType="LONGVARCHAR" />
+    <result column="CRONTAB" property="crontab" jdbcType="LONGVARCHAR" />
+    <result column="RPCINFO" property="rpcinfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ACCOUNT_ID, ACCOUNT, HOST_NAME, PASSWD_INFO, PROMISC, CREATE_TIME
+  </sql>
+  <sql id="Blob_Column_List" >
+    LSMOD, CRONTAB, RPCINFO
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.agent.wgcloud.mbg.model.IntrusionInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from intrusion_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.agent.wgcloud.mbg.model.IntrusionInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from intrusion_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from intrusion_info
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from intrusion_info
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.agent.wgcloud.mbg.model.IntrusionInfoExample" >
+    delete from intrusion_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.agent.wgcloud.mbg.model.IntrusionInfo" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into intrusion_info (ACCOUNT_ID, ACCOUNT, HOST_NAME, 
+      PASSWD_INFO, PROMISC, CREATE_TIME, 
+      LSMOD, CRONTAB, RPCINFO
+      )
+    values (#{accountId,jdbcType=CHAR}, #{account,jdbcType=CHAR}, #{hostName,jdbcType=CHAR}, 
+      #{passwdInfo,jdbcType=VARCHAR}, #{promisc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lsmod,jdbcType=LONGVARCHAR}, #{crontab,jdbcType=LONGVARCHAR}, #{rpcinfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.agent.wgcloud.mbg.model.IntrusionInfo" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into intrusion_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME,
+      </if>
+      <if test="passwdInfo != null" >
+        PASSWD_INFO,
+      </if>
+      <if test="promisc != null" >
+        PROMISC,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="lsmod != null" >
+        LSMOD,
+      </if>
+      <if test="crontab != null" >
+        CRONTAB,
+      </if>
+      <if test="rpcinfo != null" >
+        RPCINFO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="passwdInfo != null" >
+        #{passwdInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="promisc != null" >
+        #{promisc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lsmod != null" >
+        #{lsmod,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="crontab != null" >
+        #{crontab,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rpcinfo != null" >
+        #{rpcinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.agent.wgcloud.mbg.model.IntrusionInfoExample" resultType="java.lang.Integer" >
+    select count(*) from intrusion_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update intrusion_info
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.accountId != null" >
+        ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=CHAR},
+      </if>
+      <if test="record.hostName != null" >
+        HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      </if>
+      <if test="record.passwdInfo != null" >
+        PASSWD_INFO = #{record.passwdInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.promisc != null" >
+        PROMISC = #{record.promisc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lsmod != null" >
+        LSMOD = #{record.lsmod,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.crontab != null" >
+        CRONTAB = #{record.crontab,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.rpcinfo != null" >
+        RPCINFO = #{record.rpcinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update intrusion_info
+    set ID = #{record.id,jdbcType=CHAR},
+      ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      ACCOUNT = #{record.account,jdbcType=CHAR},
+      HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      PASSWD_INFO = #{record.passwdInfo,jdbcType=VARCHAR},
+      PROMISC = #{record.promisc,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      LSMOD = #{record.lsmod,jdbcType=LONGVARCHAR},
+      CRONTAB = #{record.crontab,jdbcType=LONGVARCHAR},
+      RPCINFO = #{record.rpcinfo,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update intrusion_info
+    set ID = #{record.id,jdbcType=CHAR},
+      ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      ACCOUNT = #{record.account,jdbcType=CHAR},
+      HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      PASSWD_INFO = #{record.passwdInfo,jdbcType=VARCHAR},
+      PROMISC = #{record.promisc,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.agent.wgcloud.mbg.model.IntrusionInfo" >
+    update intrusion_info
+    <set >
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME = #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="passwdInfo != null" >
+        PASSWD_INFO = #{passwdInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="promisc != null" >
+        PROMISC = #{promisc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lsmod != null" >
+        LSMOD = #{lsmod,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="crontab != null" >
+        CRONTAB = #{crontab,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rpcinfo != null" >
+        RPCINFO = #{rpcinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.agent.wgcloud.mbg.model.IntrusionInfo" >
+    update intrusion_info
+    set ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      ACCOUNT = #{account,jdbcType=CHAR},
+      HOST_NAME = #{hostName,jdbcType=CHAR},
+      PASSWD_INFO = #{passwdInfo,jdbcType=VARCHAR},
+      PROMISC = #{promisc,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LSMOD = #{lsmod,jdbcType=LONGVARCHAR},
+      CRONTAB = #{crontab,jdbcType=LONGVARCHAR},
+      RPCINFO = #{rpcinfo,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.agent.wgcloud.mbg.model.IntrusionInfo" >
+    update intrusion_info
+    set ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      ACCOUNT = #{account,jdbcType=CHAR},
+      HOST_NAME = #{hostName,jdbcType=CHAR},
+      PASSWD_INFO = #{passwdInfo,jdbcType=VARCHAR},
+      PROMISC = #{promisc,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

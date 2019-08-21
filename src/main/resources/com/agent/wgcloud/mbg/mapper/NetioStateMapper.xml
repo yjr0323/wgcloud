@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agent.wgcloud.mbg.mapper.NetioStateMapper" >
+  <resultMap id="BaseResultMap" type="com.agent.wgcloud.mbg.model.NetioState" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="CHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="CHAR" />
+    <result column="HOST_NAME" property="hostName" jdbcType="CHAR" />
+    <result column="RXPCK" property="rxpck" jdbcType="CHAR" />
+    <result column="TXPCK" property="txpck" jdbcType="CHAR" />
+    <result column="RXBYT" property="rxbyt" jdbcType="CHAR" />
+    <result column="TXBYT" property="txbyt" jdbcType="CHAR" />
+    <result column="RXCMP" property="rxcmp" jdbcType="CHAR" />
+    <result column="TXCMP" property="txcmp" jdbcType="CHAR" />
+    <result column="RXMCST" property="rxmcst" jdbcType="CHAR" />
+    <result column="DATE_STR" property="dateStr" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ACCOUNT_ID, ACCOUNT, HOST_NAME, RXPCK, TXPCK, RXBYT, TXBYT, RXCMP, TXCMP, RXMCST, 
+    DATE_STR, CREATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.agent.wgcloud.mbg.model.NetioStateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from netio_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from netio_state
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from netio_state
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.agent.wgcloud.mbg.model.NetioStateExample" >
+    delete from netio_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.agent.wgcloud.mbg.model.NetioState" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into netio_state (ACCOUNT_ID, ACCOUNT, HOST_NAME, 
+      RXPCK, TXPCK, RXBYT, TXBYT, 
+      RXCMP, TXCMP, RXMCST, DATE_STR, 
+      CREATE_TIME)
+    values (#{accountId,jdbcType=CHAR}, #{account,jdbcType=CHAR}, #{hostName,jdbcType=CHAR}, 
+      #{rxpck,jdbcType=CHAR}, #{txpck,jdbcType=CHAR}, #{rxbyt,jdbcType=CHAR}, #{txbyt,jdbcType=CHAR}, 
+      #{rxcmp,jdbcType=CHAR}, #{txcmp,jdbcType=CHAR}, #{rxmcst,jdbcType=CHAR}, #{dateStr,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.agent.wgcloud.mbg.model.NetioState" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into netio_state
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME,
+      </if>
+      <if test="rxpck != null" >
+        RXPCK,
+      </if>
+      <if test="txpck != null" >
+        TXPCK,
+      </if>
+      <if test="rxbyt != null" >
+        RXBYT,
+      </if>
+      <if test="txbyt != null" >
+        TXBYT,
+      </if>
+      <if test="rxcmp != null" >
+        RXCMP,
+      </if>
+      <if test="txcmp != null" >
+        TXCMP,
+      </if>
+      <if test="rxmcst != null" >
+        RXMCST,
+      </if>
+      <if test="dateStr != null" >
+        DATE_STR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="rxpck != null" >
+        #{rxpck,jdbcType=CHAR},
+      </if>
+      <if test="txpck != null" >
+        #{txpck,jdbcType=CHAR},
+      </if>
+      <if test="rxbyt != null" >
+        #{rxbyt,jdbcType=CHAR},
+      </if>
+      <if test="txbyt != null" >
+        #{txbyt,jdbcType=CHAR},
+      </if>
+      <if test="rxcmp != null" >
+        #{rxcmp,jdbcType=CHAR},
+      </if>
+      <if test="txcmp != null" >
+        #{txcmp,jdbcType=CHAR},
+      </if>
+      <if test="rxmcst != null" >
+        #{rxmcst,jdbcType=CHAR},
+      </if>
+      <if test="dateStr != null" >
+        #{dateStr,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.agent.wgcloud.mbg.model.NetioStateExample" resultType="java.lang.Integer" >
+    select count(*) from netio_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update netio_state
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.accountId != null" >
+        ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=CHAR},
+      </if>
+      <if test="record.hostName != null" >
+        HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      </if>
+      <if test="record.rxpck != null" >
+        RXPCK = #{record.rxpck,jdbcType=CHAR},
+      </if>
+      <if test="record.txpck != null" >
+        TXPCK = #{record.txpck,jdbcType=CHAR},
+      </if>
+      <if test="record.rxbyt != null" >
+        RXBYT = #{record.rxbyt,jdbcType=CHAR},
+      </if>
+      <if test="record.txbyt != null" >
+        TXBYT = #{record.txbyt,jdbcType=CHAR},
+      </if>
+      <if test="record.rxcmp != null" >
+        RXCMP = #{record.rxcmp,jdbcType=CHAR},
+      </if>
+      <if test="record.txcmp != null" >
+        TXCMP = #{record.txcmp,jdbcType=CHAR},
+      </if>
+      <if test="record.rxmcst != null" >
+        RXMCST = #{record.rxmcst,jdbcType=CHAR},
+      </if>
+      <if test="record.dateStr != null" >
+        DATE_STR = #{record.dateStr,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update netio_state
+    set ID = #{record.id,jdbcType=CHAR},
+      ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      ACCOUNT = #{record.account,jdbcType=CHAR},
+      HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      RXPCK = #{record.rxpck,jdbcType=CHAR},
+      TXPCK = #{record.txpck,jdbcType=CHAR},
+      RXBYT = #{record.rxbyt,jdbcType=CHAR},
+      TXBYT = #{record.txbyt,jdbcType=CHAR},
+      RXCMP = #{record.rxcmp,jdbcType=CHAR},
+      TXCMP = #{record.txcmp,jdbcType=CHAR},
+      RXMCST = #{record.rxmcst,jdbcType=CHAR},
+      DATE_STR = #{record.dateStr,jdbcType=CHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.agent.wgcloud.mbg.model.NetioState" >
+    update netio_state
+    <set >
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME = #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="rxpck != null" >
+        RXPCK = #{rxpck,jdbcType=CHAR},
+      </if>
+      <if test="txpck != null" >
+        TXPCK = #{txpck,jdbcType=CHAR},
+      </if>
+      <if test="rxbyt != null" >
+        RXBYT = #{rxbyt,jdbcType=CHAR},
+      </if>
+      <if test="txbyt != null" >
+        TXBYT = #{txbyt,jdbcType=CHAR},
+      </if>
+      <if test="rxcmp != null" >
+        RXCMP = #{rxcmp,jdbcType=CHAR},
+      </if>
+      <if test="txcmp != null" >
+        TXCMP = #{txcmp,jdbcType=CHAR},
+      </if>
+      <if test="rxmcst != null" >
+        RXMCST = #{rxmcst,jdbcType=CHAR},
+      </if>
+      <if test="dateStr != null" >
+        DATE_STR = #{dateStr,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.agent.wgcloud.mbg.model.NetioState" >
+    update netio_state
+    set ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      ACCOUNT = #{account,jdbcType=CHAR},
+      HOST_NAME = #{hostName,jdbcType=CHAR},
+      RXPCK = #{rxpck,jdbcType=CHAR},
+      TXPCK = #{txpck,jdbcType=CHAR},
+      RXBYT = #{rxbyt,jdbcType=CHAR},
+      TXBYT = #{txbyt,jdbcType=CHAR},
+      RXCMP = #{rxcmp,jdbcType=CHAR},
+      TXCMP = #{txcmp,jdbcType=CHAR},
+      RXMCST = #{rxmcst,jdbcType=CHAR},
+      DATE_STR = #{dateStr,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

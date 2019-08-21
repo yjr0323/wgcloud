@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agent.wgcloud.mbg.mapper.SysLoadStateMapper" >
+  <resultMap id="BaseResultMap" type="com.agent.wgcloud.mbg.model.SysLoadState" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="CHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="CHAR" />
+    <result column="HOST_NAME" property="hostName" jdbcType="CHAR" />
+    <result column="ONE_LOAD" property="oneLoad" jdbcType="CHAR" />
+    <result column="FIVE_LOAD" property="fiveLoad" jdbcType="CHAR" />
+    <result column="FIFTEEN_LOAD" property="fifteenLoad" jdbcType="CHAR" />
+    <result column="USERS" property="users" jdbcType="CHAR" />
+    <result column="DATE_STR" property="dateStr" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ACCOUNT_ID, ACCOUNT, HOST_NAME, ONE_LOAD, FIVE_LOAD, FIFTEEN_LOAD, USERS, DATE_STR, 
+    CREATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.agent.wgcloud.mbg.model.SysLoadStateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_load_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_load_state
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_load_state
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.agent.wgcloud.mbg.model.SysLoadStateExample" >
+    delete from sys_load_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.agent.wgcloud.mbg.model.SysLoadState" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_load_state (ACCOUNT_ID, ACCOUNT, HOST_NAME, 
+      ONE_LOAD, FIVE_LOAD, FIFTEEN_LOAD, 
+      USERS, DATE_STR, CREATE_TIME
+      )
+    values (#{accountId,jdbcType=CHAR}, #{account,jdbcType=CHAR}, #{hostName,jdbcType=CHAR}, 
+      #{oneLoad,jdbcType=CHAR}, #{fiveLoad,jdbcType=CHAR}, #{fifteenLoad,jdbcType=CHAR}, 
+      #{users,jdbcType=CHAR}, #{dateStr,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.agent.wgcloud.mbg.model.SysLoadState" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_load_state
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME,
+      </if>
+      <if test="oneLoad != null" >
+        ONE_LOAD,
+      </if>
+      <if test="fiveLoad != null" >
+        FIVE_LOAD,
+      </if>
+      <if test="fifteenLoad != null" >
+        FIFTEEN_LOAD,
+      </if>
+      <if test="users != null" >
+        USERS,
+      </if>
+      <if test="dateStr != null" >
+        DATE_STR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="oneLoad != null" >
+        #{oneLoad,jdbcType=CHAR},
+      </if>
+      <if test="fiveLoad != null" >
+        #{fiveLoad,jdbcType=CHAR},
+      </if>
+      <if test="fifteenLoad != null" >
+        #{fifteenLoad,jdbcType=CHAR},
+      </if>
+      <if test="users != null" >
+        #{users,jdbcType=CHAR},
+      </if>
+      <if test="dateStr != null" >
+        #{dateStr,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.agent.wgcloud.mbg.model.SysLoadStateExample" resultType="java.lang.Integer" >
+    select count(*) from sys_load_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_load_state
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.accountId != null" >
+        ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=CHAR},
+      </if>
+      <if test="record.hostName != null" >
+        HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      </if>
+      <if test="record.oneLoad != null" >
+        ONE_LOAD = #{record.oneLoad,jdbcType=CHAR},
+      </if>
+      <if test="record.fiveLoad != null" >
+        FIVE_LOAD = #{record.fiveLoad,jdbcType=CHAR},
+      </if>
+      <if test="record.fifteenLoad != null" >
+        FIFTEEN_LOAD = #{record.fifteenLoad,jdbcType=CHAR},
+      </if>
+      <if test="record.users != null" >
+        USERS = #{record.users,jdbcType=CHAR},
+      </if>
+      <if test="record.dateStr != null" >
+        DATE_STR = #{record.dateStr,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_load_state
+    set ID = #{record.id,jdbcType=CHAR},
+      ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      ACCOUNT = #{record.account,jdbcType=CHAR},
+      HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      ONE_LOAD = #{record.oneLoad,jdbcType=CHAR},
+      FIVE_LOAD = #{record.fiveLoad,jdbcType=CHAR},
+      FIFTEEN_LOAD = #{record.fifteenLoad,jdbcType=CHAR},
+      USERS = #{record.users,jdbcType=CHAR},
+      DATE_STR = #{record.dateStr,jdbcType=CHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.agent.wgcloud.mbg.model.SysLoadState" >
+    update sys_load_state
+    <set >
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME = #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="oneLoad != null" >
+        ONE_LOAD = #{oneLoad,jdbcType=CHAR},
+      </if>
+      <if test="fiveLoad != null" >
+        FIVE_LOAD = #{fiveLoad,jdbcType=CHAR},
+      </if>
+      <if test="fifteenLoad != null" >
+        FIFTEEN_LOAD = #{fifteenLoad,jdbcType=CHAR},
+      </if>
+      <if test="users != null" >
+        USERS = #{users,jdbcType=CHAR},
+      </if>
+      <if test="dateStr != null" >
+        DATE_STR = #{dateStr,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.agent.wgcloud.mbg.model.SysLoadState" >
+    update sys_load_state
+    set ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      ACCOUNT = #{account,jdbcType=CHAR},
+      HOST_NAME = #{hostName,jdbcType=CHAR},
+      ONE_LOAD = #{oneLoad,jdbcType=CHAR},
+      FIVE_LOAD = #{fiveLoad,jdbcType=CHAR},
+      FIFTEEN_LOAD = #{fifteenLoad,jdbcType=CHAR},
+      USERS = #{users,jdbcType=CHAR},
+      DATE_STR = #{dateStr,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

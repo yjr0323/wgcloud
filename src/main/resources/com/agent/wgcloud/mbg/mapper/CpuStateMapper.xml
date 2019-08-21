@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agent.wgcloud.mbg.mapper.CpuStateMapper" >
+  <resultMap id="BaseResultMap" type="com.agent.wgcloud.mbg.model.CpuState" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="CHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="CHAR" />
+    <result column="HOST_NAME" property="hostName" jdbcType="CHAR" />
+    <result column="USER" property="user" jdbcType="CHAR" />
+    <result column="SYS" property="sys" jdbcType="CHAR" />
+    <result column="IDLE" property="idle" jdbcType="CHAR" />
+    <result column="IOWAIT" property="iowait" jdbcType="CHAR" />
+    <result column="IRQ" property="irq" jdbcType="CHAR" />
+    <result column="SOFT" property="soft" jdbcType="CHAR" />
+    <result column="DATE_STR" property="dateStr" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ACCOUNT_ID, ACCOUNT, HOST_NAME, USER, SYS, IDLE, IOWAIT, IRQ, SOFT, DATE_STR, 
+    CREATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.agent.wgcloud.mbg.model.CpuStateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cpu_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cpu_state
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cpu_state
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.agent.wgcloud.mbg.model.CpuStateExample" >
+    delete from cpu_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.agent.wgcloud.mbg.model.CpuState" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cpu_state (ACCOUNT_ID, ACCOUNT, HOST_NAME, 
+      USER, SYS, IDLE, IOWAIT, 
+      IRQ, SOFT, DATE_STR, CREATE_TIME
+      )
+    values (#{accountId,jdbcType=CHAR}, #{account,jdbcType=CHAR}, #{hostName,jdbcType=CHAR}, 
+      #{user,jdbcType=CHAR}, #{sys,jdbcType=CHAR}, #{idle,jdbcType=CHAR}, #{iowait,jdbcType=CHAR}, 
+      #{irq,jdbcType=CHAR}, #{soft,jdbcType=CHAR}, #{dateStr,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.agent.wgcloud.mbg.model.CpuState" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cpu_state
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME,
+      </if>
+      <if test="user != null" >
+        USER,
+      </if>
+      <if test="sys != null" >
+        SYS,
+      </if>
+      <if test="idle != null" >
+        IDLE,
+      </if>
+      <if test="iowait != null" >
+        IOWAIT,
+      </if>
+      <if test="irq != null" >
+        IRQ,
+      </if>
+      <if test="soft != null" >
+        SOFT,
+      </if>
+      <if test="dateStr != null" >
+        DATE_STR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=CHAR},
+      </if>
+      <if test="sys != null" >
+        #{sys,jdbcType=CHAR},
+      </if>
+      <if test="idle != null" >
+        #{idle,jdbcType=CHAR},
+      </if>
+      <if test="iowait != null" >
+        #{iowait,jdbcType=CHAR},
+      </if>
+      <if test="irq != null" >
+        #{irq,jdbcType=CHAR},
+      </if>
+      <if test="soft != null" >
+        #{soft,jdbcType=CHAR},
+      </if>
+      <if test="dateStr != null" >
+        #{dateStr,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.agent.wgcloud.mbg.model.CpuStateExample" resultType="java.lang.Integer" >
+    select count(*) from cpu_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cpu_state
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.accountId != null" >
+        ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=CHAR},
+      </if>
+      <if test="record.hostName != null" >
+        HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      </if>
+      <if test="record.user != null" >
+        USER = #{record.user,jdbcType=CHAR},
+      </if>
+      <if test="record.sys != null" >
+        SYS = #{record.sys,jdbcType=CHAR},
+      </if>
+      <if test="record.idle != null" >
+        IDLE = #{record.idle,jdbcType=CHAR},
+      </if>
+      <if test="record.iowait != null" >
+        IOWAIT = #{record.iowait,jdbcType=CHAR},
+      </if>
+      <if test="record.irq != null" >
+        IRQ = #{record.irq,jdbcType=CHAR},
+      </if>
+      <if test="record.soft != null" >
+        SOFT = #{record.soft,jdbcType=CHAR},
+      </if>
+      <if test="record.dateStr != null" >
+        DATE_STR = #{record.dateStr,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cpu_state
+    set ID = #{record.id,jdbcType=CHAR},
+      ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      ACCOUNT = #{record.account,jdbcType=CHAR},
+      HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      USER = #{record.user,jdbcType=CHAR},
+      SYS = #{record.sys,jdbcType=CHAR},
+      IDLE = #{record.idle,jdbcType=CHAR},
+      IOWAIT = #{record.iowait,jdbcType=CHAR},
+      IRQ = #{record.irq,jdbcType=CHAR},
+      SOFT = #{record.soft,jdbcType=CHAR},
+      DATE_STR = #{record.dateStr,jdbcType=CHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.agent.wgcloud.mbg.model.CpuState" >
+    update cpu_state
+    <set >
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME = #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="user != null" >
+        USER = #{user,jdbcType=CHAR},
+      </if>
+      <if test="sys != null" >
+        SYS = #{sys,jdbcType=CHAR},
+      </if>
+      <if test="idle != null" >
+        IDLE = #{idle,jdbcType=CHAR},
+      </if>
+      <if test="iowait != null" >
+        IOWAIT = #{iowait,jdbcType=CHAR},
+      </if>
+      <if test="irq != null" >
+        IRQ = #{irq,jdbcType=CHAR},
+      </if>
+      <if test="soft != null" >
+        SOFT = #{soft,jdbcType=CHAR},
+      </if>
+      <if test="dateStr != null" >
+        DATE_STR = #{dateStr,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.agent.wgcloud.mbg.model.CpuState" >
+    update cpu_state
+    set ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      ACCOUNT = #{account,jdbcType=CHAR},
+      HOST_NAME = #{hostName,jdbcType=CHAR},
+      USER = #{user,jdbcType=CHAR},
+      SYS = #{sys,jdbcType=CHAR},
+      IDLE = #{idle,jdbcType=CHAR},
+      IOWAIT = #{iowait,jdbcType=CHAR},
+      IRQ = #{irq,jdbcType=CHAR},
+      SOFT = #{soft,jdbcType=CHAR},
+      DATE_STR = #{dateStr,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

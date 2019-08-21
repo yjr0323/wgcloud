@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agent.wgcloud.mbg.mapper.DeskStateMapper" >
+  <resultMap id="BaseResultMap" type="com.agent.wgcloud.mbg.model.DeskState" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="CHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="CHAR" />
+    <result column="HOST_NAME" property="hostName" jdbcType="CHAR" />
+    <result column="FILE_STSTEM" property="fileStstem" jdbcType="CHAR" />
+    <result column="SIZE" property="size" jdbcType="CHAR" />
+    <result column="USED" property="used" jdbcType="CHAR" />
+    <result column="AVAIL" property="avail" jdbcType="CHAR" />
+    <result column="USE_PER" property="usePer" jdbcType="CHAR" />
+    <result column="DATE_STR" property="dateStr" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ACCOUNT_ID, ACCOUNT, HOST_NAME, FILE_STSTEM, SIZE, USED, AVAIL, USE_PER, DATE_STR, 
+    CREATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.agent.wgcloud.mbg.model.DeskStateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from desk_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from desk_state
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from desk_state
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.agent.wgcloud.mbg.model.DeskStateExample" >
+    delete from desk_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.agent.wgcloud.mbg.model.DeskState" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into desk_state (ACCOUNT_ID, ACCOUNT, HOST_NAME, 
+      FILE_STSTEM, SIZE, USED, AVAIL, 
+      USE_PER, DATE_STR, CREATE_TIME
+      )
+    values (#{accountId,jdbcType=CHAR}, #{account,jdbcType=CHAR}, #{hostName,jdbcType=CHAR}, 
+      #{fileStstem,jdbcType=CHAR}, #{size,jdbcType=CHAR}, #{used,jdbcType=CHAR}, #{avail,jdbcType=CHAR}, 
+      #{usePer,jdbcType=CHAR}, #{dateStr,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.agent.wgcloud.mbg.model.DeskState" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into desk_state
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME,
+      </if>
+      <if test="fileStstem != null" >
+        FILE_STSTEM,
+      </if>
+      <if test="size != null" >
+        SIZE,
+      </if>
+      <if test="used != null" >
+        USED,
+      </if>
+      <if test="avail != null" >
+        AVAIL,
+      </if>
+      <if test="usePer != null" >
+        USE_PER,
+      </if>
+      <if test="dateStr != null" >
+        DATE_STR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="fileStstem != null" >
+        #{fileStstem,jdbcType=CHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=CHAR},
+      </if>
+      <if test="used != null" >
+        #{used,jdbcType=CHAR},
+      </if>
+      <if test="avail != null" >
+        #{avail,jdbcType=CHAR},
+      </if>
+      <if test="usePer != null" >
+        #{usePer,jdbcType=CHAR},
+      </if>
+      <if test="dateStr != null" >
+        #{dateStr,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.agent.wgcloud.mbg.model.DeskStateExample" resultType="java.lang.Integer" >
+    select count(*) from desk_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update desk_state
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.accountId != null" >
+        ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=CHAR},
+      </if>
+      <if test="record.hostName != null" >
+        HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      </if>
+      <if test="record.fileStstem != null" >
+        FILE_STSTEM = #{record.fileStstem,jdbcType=CHAR},
+      </if>
+      <if test="record.size != null" >
+        SIZE = #{record.size,jdbcType=CHAR},
+      </if>
+      <if test="record.used != null" >
+        USED = #{record.used,jdbcType=CHAR},
+      </if>
+      <if test="record.avail != null" >
+        AVAIL = #{record.avail,jdbcType=CHAR},
+      </if>
+      <if test="record.usePer != null" >
+        USE_PER = #{record.usePer,jdbcType=CHAR},
+      </if>
+      <if test="record.dateStr != null" >
+        DATE_STR = #{record.dateStr,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update desk_state
+    set ID = #{record.id,jdbcType=CHAR},
+      ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      ACCOUNT = #{record.account,jdbcType=CHAR},
+      HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      FILE_STSTEM = #{record.fileStstem,jdbcType=CHAR},
+      SIZE = #{record.size,jdbcType=CHAR},
+      USED = #{record.used,jdbcType=CHAR},
+      AVAIL = #{record.avail,jdbcType=CHAR},
+      USE_PER = #{record.usePer,jdbcType=CHAR},
+      DATE_STR = #{record.dateStr,jdbcType=CHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.agent.wgcloud.mbg.model.DeskState" >
+    update desk_state
+    <set >
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME = #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="fileStstem != null" >
+        FILE_STSTEM = #{fileStstem,jdbcType=CHAR},
+      </if>
+      <if test="size != null" >
+        SIZE = #{size,jdbcType=CHAR},
+      </if>
+      <if test="used != null" >
+        USED = #{used,jdbcType=CHAR},
+      </if>
+      <if test="avail != null" >
+        AVAIL = #{avail,jdbcType=CHAR},
+      </if>
+      <if test="usePer != null" >
+        USE_PER = #{usePer,jdbcType=CHAR},
+      </if>
+      <if test="dateStr != null" >
+        DATE_STR = #{dateStr,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.agent.wgcloud.mbg.model.DeskState" >
+    update desk_state
+    set ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      ACCOUNT = #{account,jdbcType=CHAR},
+      HOST_NAME = #{hostName,jdbcType=CHAR},
+      FILE_STSTEM = #{fileStstem,jdbcType=CHAR},
+      SIZE = #{size,jdbcType=CHAR},
+      USED = #{used,jdbcType=CHAR},
+      AVAIL = #{avail,jdbcType=CHAR},
+      USE_PER = #{usePer,jdbcType=CHAR},
+      DATE_STR = #{dateStr,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

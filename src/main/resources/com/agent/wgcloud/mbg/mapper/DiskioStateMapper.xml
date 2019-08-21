@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agent.wgcloud.mbg.mapper.DiskioStateMapper" >
+  <resultMap id="BaseResultMap" type="com.agent.wgcloud.mbg.model.DiskioState" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="CHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="CHAR" />
+    <result column="HOST_NAME" property="hostName" jdbcType="CHAR" />
+    <result column="RS" property="rs" jdbcType="CHAR" />
+    <result column="WS" property="ws" jdbcType="CHAR" />
+    <result column="RKBS" property="rkbs" jdbcType="CHAR" />
+    <result column="WKBS" property="wkbs" jdbcType="CHAR" />
+    <result column="AWAIT" property="await" jdbcType="CHAR" />
+    <result column="AVGQUSZ" property="avgqusz" jdbcType="CHAR" />
+    <result column="UTIL" property="util" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="DATE_STR" property="dateStr" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ACCOUNT_ID, ACCOUNT, HOST_NAME, RS, WS, RKBS, WKBS, AWAIT, AVGQUSZ, UTIL, CREATE_TIME, 
+    DATE_STR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.agent.wgcloud.mbg.model.DiskioStateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from diskio_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from diskio_state
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from diskio_state
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.agent.wgcloud.mbg.model.DiskioStateExample" >
+    delete from diskio_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.agent.wgcloud.mbg.model.DiskioState" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into diskio_state (ACCOUNT_ID, ACCOUNT, HOST_NAME, 
+      RS, WS, RKBS, WKBS, 
+      AWAIT, AVGQUSZ, UTIL, CREATE_TIME, 
+      DATE_STR)
+    values (#{accountId,jdbcType=CHAR}, #{account,jdbcType=CHAR}, #{hostName,jdbcType=CHAR}, 
+      #{rs,jdbcType=CHAR}, #{ws,jdbcType=CHAR}, #{rkbs,jdbcType=CHAR}, #{wkbs,jdbcType=CHAR}, 
+      #{await,jdbcType=CHAR}, #{avgqusz,jdbcType=CHAR}, #{util,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{dateStr,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.agent.wgcloud.mbg.model.DiskioState" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into diskio_state
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME,
+      </if>
+      <if test="rs != null" >
+        RS,
+      </if>
+      <if test="ws != null" >
+        WS,
+      </if>
+      <if test="rkbs != null" >
+        RKBS,
+      </if>
+      <if test="wkbs != null" >
+        WKBS,
+      </if>
+      <if test="await != null" >
+        AWAIT,
+      </if>
+      <if test="avgqusz != null" >
+        AVGQUSZ,
+      </if>
+      <if test="util != null" >
+        UTIL,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="dateStr != null" >
+        DATE_STR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="rs != null" >
+        #{rs,jdbcType=CHAR},
+      </if>
+      <if test="ws != null" >
+        #{ws,jdbcType=CHAR},
+      </if>
+      <if test="rkbs != null" >
+        #{rkbs,jdbcType=CHAR},
+      </if>
+      <if test="wkbs != null" >
+        #{wkbs,jdbcType=CHAR},
+      </if>
+      <if test="await != null" >
+        #{await,jdbcType=CHAR},
+      </if>
+      <if test="avgqusz != null" >
+        #{avgqusz,jdbcType=CHAR},
+      </if>
+      <if test="util != null" >
+        #{util,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateStr != null" >
+        #{dateStr,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.agent.wgcloud.mbg.model.DiskioStateExample" resultType="java.lang.Integer" >
+    select count(*) from diskio_state
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update diskio_state
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.accountId != null" >
+        ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=CHAR},
+      </if>
+      <if test="record.hostName != null" >
+        HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      </if>
+      <if test="record.rs != null" >
+        RS = #{record.rs,jdbcType=CHAR},
+      </if>
+      <if test="record.ws != null" >
+        WS = #{record.ws,jdbcType=CHAR},
+      </if>
+      <if test="record.rkbs != null" >
+        RKBS = #{record.rkbs,jdbcType=CHAR},
+      </if>
+      <if test="record.wkbs != null" >
+        WKBS = #{record.wkbs,jdbcType=CHAR},
+      </if>
+      <if test="record.await != null" >
+        AWAIT = #{record.await,jdbcType=CHAR},
+      </if>
+      <if test="record.avgqusz != null" >
+        AVGQUSZ = #{record.avgqusz,jdbcType=CHAR},
+      </if>
+      <if test="record.util != null" >
+        UTIL = #{record.util,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dateStr != null" >
+        DATE_STR = #{record.dateStr,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update diskio_state
+    set ID = #{record.id,jdbcType=CHAR},
+      ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      ACCOUNT = #{record.account,jdbcType=CHAR},
+      HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      RS = #{record.rs,jdbcType=CHAR},
+      WS = #{record.ws,jdbcType=CHAR},
+      RKBS = #{record.rkbs,jdbcType=CHAR},
+      WKBS = #{record.wkbs,jdbcType=CHAR},
+      AWAIT = #{record.await,jdbcType=CHAR},
+      AVGQUSZ = #{record.avgqusz,jdbcType=CHAR},
+      UTIL = #{record.util,jdbcType=CHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      DATE_STR = #{record.dateStr,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.agent.wgcloud.mbg.model.DiskioState" >
+    update diskio_state
+    <set >
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME = #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="rs != null" >
+        RS = #{rs,jdbcType=CHAR},
+      </if>
+      <if test="ws != null" >
+        WS = #{ws,jdbcType=CHAR},
+      </if>
+      <if test="rkbs != null" >
+        RKBS = #{rkbs,jdbcType=CHAR},
+      </if>
+      <if test="wkbs != null" >
+        WKBS = #{wkbs,jdbcType=CHAR},
+      </if>
+      <if test="await != null" >
+        AWAIT = #{await,jdbcType=CHAR},
+      </if>
+      <if test="avgqusz != null" >
+        AVGQUSZ = #{avgqusz,jdbcType=CHAR},
+      </if>
+      <if test="util != null" >
+        UTIL = #{util,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateStr != null" >
+        DATE_STR = #{dateStr,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.agent.wgcloud.mbg.model.DiskioState" >
+    update diskio_state
+    set ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      ACCOUNT = #{account,jdbcType=CHAR},
+      HOST_NAME = #{hostName,jdbcType=CHAR},
+      RS = #{rs,jdbcType=CHAR},
+      WS = #{ws,jdbcType=CHAR},
+      RKBS = #{rkbs,jdbcType=CHAR},
+      WKBS = #{wkbs,jdbcType=CHAR},
+      AWAIT = #{await,jdbcType=CHAR},
+      AVGQUSZ = #{avgqusz,jdbcType=CHAR},
+      UTIL = #{util,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      DATE_STR = #{dateStr,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

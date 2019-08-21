@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agent.wgcloud.mbg.mapper.MsgInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.agent.wgcloud.mbg.model.MsgInfo" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ACCEPT_INFO" property="acceptInfo" jdbcType="CHAR" />
+    <result column="INFO_CONTENT" property="infoContent" jdbcType="VARCHAR" />
+    <result column="MSG_TITLE" property="msgTitle" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="CHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ACCEPT_INFO, INFO_CONTENT, MSG_TITLE, CREATE_TIME, ACCOUNT_ID, ACCOUNT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.agent.wgcloud.mbg.model.MsgInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from msg_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from msg_info
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from msg_info
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.agent.wgcloud.mbg.model.MsgInfoExample" >
+    delete from msg_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.agent.wgcloud.mbg.model.MsgInfo" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into msg_info (ACCEPT_INFO, INFO_CONTENT, MSG_TITLE, 
+      CREATE_TIME, ACCOUNT_ID, ACCOUNT
+      )
+    values (#{acceptInfo,jdbcType=CHAR}, #{infoContent,jdbcType=VARCHAR}, #{msgTitle,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{accountId,jdbcType=CHAR}, #{account,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.agent.wgcloud.mbg.model.MsgInfo" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into msg_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="acceptInfo != null" >
+        ACCEPT_INFO,
+      </if>
+      <if test="infoContent != null" >
+        INFO_CONTENT,
+      </if>
+      <if test="msgTitle != null" >
+        MSG_TITLE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="acceptInfo != null" >
+        #{acceptInfo,jdbcType=CHAR},
+      </if>
+      <if test="infoContent != null" >
+        #{infoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTitle != null" >
+        #{msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.agent.wgcloud.mbg.model.MsgInfoExample" resultType="java.lang.Integer" >
+    select count(*) from msg_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update msg_info
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.acceptInfo != null" >
+        ACCEPT_INFO = #{record.acceptInfo,jdbcType=CHAR},
+      </if>
+      <if test="record.infoContent != null" >
+        INFO_CONTENT = #{record.infoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgTitle != null" >
+        MSG_TITLE = #{record.msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.accountId != null" >
+        ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update msg_info
+    set ID = #{record.id,jdbcType=CHAR},
+      ACCEPT_INFO = #{record.acceptInfo,jdbcType=CHAR},
+      INFO_CONTENT = #{record.infoContent,jdbcType=VARCHAR},
+      MSG_TITLE = #{record.msgTitle,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      ACCOUNT = #{record.account,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.agent.wgcloud.mbg.model.MsgInfo" >
+    update msg_info
+    <set >
+      <if test="acceptInfo != null" >
+        ACCEPT_INFO = #{acceptInfo,jdbcType=CHAR},
+      </if>
+      <if test="infoContent != null" >
+        INFO_CONTENT = #{infoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTitle != null" >
+        MSG_TITLE = #{msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.agent.wgcloud.mbg.model.MsgInfo" >
+    update msg_info
+    set ACCEPT_INFO = #{acceptInfo,jdbcType=CHAR},
+      INFO_CONTENT = #{infoContent,jdbcType=VARCHAR},
+      MSG_TITLE = #{msgTitle,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      ACCOUNT = #{account,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

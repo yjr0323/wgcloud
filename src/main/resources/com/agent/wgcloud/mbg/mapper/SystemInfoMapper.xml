@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agent.wgcloud.mbg.mapper.SystemInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.agent.wgcloud.mbg.model.SystemInfo" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="CHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="CHAR" />
+    <result column="HOST_NAME" property="hostName" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="CHAR" />
+    <result column="VERSION_DETAIL" property="versionDetail" jdbcType="CHAR" />
+    <result column="CPU_NUM" property="cpuNum" jdbcType="CHAR" />
+    <result column="YX_DAYS" property="yxDays" jdbcType="CHAR" />
+    <result column="CPU_CORE_NUM" property="cpuCoreNum" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CPU_XH" property="cpuXh" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ACCOUNT_ID, ACCOUNT, HOST_NAME, VERSION, VERSION_DETAIL, CPU_NUM, YX_DAYS, CPU_CORE_NUM, 
+    CREATE_TIME, CPU_XH
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.agent.wgcloud.mbg.model.SystemInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from system_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_info
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from system_info
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.agent.wgcloud.mbg.model.SystemInfoExample" >
+    delete from system_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.agent.wgcloud.mbg.model.SystemInfo" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into system_info (ACCOUNT_ID, ACCOUNT, HOST_NAME, 
+      VERSION, VERSION_DETAIL, CPU_NUM, 
+      YX_DAYS, CPU_CORE_NUM, CREATE_TIME, 
+      CPU_XH)
+    values (#{accountId,jdbcType=CHAR}, #{account,jdbcType=CHAR}, #{hostName,jdbcType=CHAR}, 
+      #{version,jdbcType=CHAR}, #{versionDetail,jdbcType=CHAR}, #{cpuNum,jdbcType=CHAR}, 
+      #{yxDays,jdbcType=CHAR}, #{cpuCoreNum,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{cpuXh,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.agent.wgcloud.mbg.model.SystemInfo" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into system_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="versionDetail != null" >
+        VERSION_DETAIL,
+      </if>
+      <if test="cpuNum != null" >
+        CPU_NUM,
+      </if>
+      <if test="yxDays != null" >
+        YX_DAYS,
+      </if>
+      <if test="cpuCoreNum != null" >
+        CPU_CORE_NUM,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="cpuXh != null" >
+        CPU_XH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=CHAR},
+      </if>
+      <if test="versionDetail != null" >
+        #{versionDetail,jdbcType=CHAR},
+      </if>
+      <if test="cpuNum != null" >
+        #{cpuNum,jdbcType=CHAR},
+      </if>
+      <if test="yxDays != null" >
+        #{yxDays,jdbcType=CHAR},
+      </if>
+      <if test="cpuCoreNum != null" >
+        #{cpuCoreNum,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cpuXh != null" >
+        #{cpuXh,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.agent.wgcloud.mbg.model.SystemInfoExample" resultType="java.lang.Integer" >
+    select count(*) from system_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update system_info
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.accountId != null" >
+        ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=CHAR},
+      </if>
+      <if test="record.hostName != null" >
+        HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      </if>
+      <if test="record.version != null" >
+        VERSION = #{record.version,jdbcType=CHAR},
+      </if>
+      <if test="record.versionDetail != null" >
+        VERSION_DETAIL = #{record.versionDetail,jdbcType=CHAR},
+      </if>
+      <if test="record.cpuNum != null" >
+        CPU_NUM = #{record.cpuNum,jdbcType=CHAR},
+      </if>
+      <if test="record.yxDays != null" >
+        YX_DAYS = #{record.yxDays,jdbcType=CHAR},
+      </if>
+      <if test="record.cpuCoreNum != null" >
+        CPU_CORE_NUM = #{record.cpuCoreNum,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cpuXh != null" >
+        CPU_XH = #{record.cpuXh,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update system_info
+    set ID = #{record.id,jdbcType=CHAR},
+      ACCOUNT_ID = #{record.accountId,jdbcType=CHAR},
+      ACCOUNT = #{record.account,jdbcType=CHAR},
+      HOST_NAME = #{record.hostName,jdbcType=CHAR},
+      VERSION = #{record.version,jdbcType=CHAR},
+      VERSION_DETAIL = #{record.versionDetail,jdbcType=CHAR},
+      CPU_NUM = #{record.cpuNum,jdbcType=CHAR},
+      YX_DAYS = #{record.yxDays,jdbcType=CHAR},
+      CPU_CORE_NUM = #{record.cpuCoreNum,jdbcType=CHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CPU_XH = #{record.cpuXh,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.agent.wgcloud.mbg.model.SystemInfo" >
+    update system_info
+    <set >
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=CHAR},
+      </if>
+      <if test="hostName != null" >
+        HOST_NAME = #{hostName,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=CHAR},
+      </if>
+      <if test="versionDetail != null" >
+        VERSION_DETAIL = #{versionDetail,jdbcType=CHAR},
+      </if>
+      <if test="cpuNum != null" >
+        CPU_NUM = #{cpuNum,jdbcType=CHAR},
+      </if>
+      <if test="yxDays != null" >
+        YX_DAYS = #{yxDays,jdbcType=CHAR},
+      </if>
+      <if test="cpuCoreNum != null" >
+        CPU_CORE_NUM = #{cpuCoreNum,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cpuXh != null" >
+        CPU_XH = #{cpuXh,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.agent.wgcloud.mbg.model.SystemInfo" >
+    update system_info
+    set ACCOUNT_ID = #{accountId,jdbcType=CHAR},
+      ACCOUNT = #{account,jdbcType=CHAR},
+      HOST_NAME = #{hostName,jdbcType=CHAR},
+      VERSION = #{version,jdbcType=CHAR},
+      VERSION_DETAIL = #{versionDetail,jdbcType=CHAR},
+      CPU_NUM = #{cpuNum,jdbcType=CHAR},
+      YX_DAYS = #{yxDays,jdbcType=CHAR},
+      CPU_CORE_NUM = #{cpuCoreNum,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CPU_XH = #{cpuXh,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>
